@@ -19,3 +19,31 @@ for (const [start, end] of idPairs) {
 }
 
 console.log(invalidIdSum);
+
+const hasDuplicateSubstringAll = (id: string) => {
+  for (let i = 1; i < id.length; i++) {
+    if (id.length / i !== Math.floor(id.length / i)) continue;
+    const substring = id.slice(0, i);
+    let allDuplicate = true;
+    for (let j = 0; j < id.length; j += i) {
+      if (id.slice(j, j + i) !== substring) {
+        allDuplicate = false;
+        break;
+      }
+    }
+    if (allDuplicate) return true;
+  }
+  return false;
+};
+
+invalidIdSum = 0;
+
+for (const [start, end] of idPairs) {
+  for (let id = parseInt(start!); id <= parseInt(end!); id++) {
+    if (hasDuplicateSubstringAll(id.toString())) {
+      invalidIdSum += id;
+    }
+  }
+}
+
+console.log(invalidIdSum);
