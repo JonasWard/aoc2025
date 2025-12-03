@@ -4342,3 +4342,17 @@ for (const step of steps) {
 }
 
 console.log(count);
+
+state = 50;
+count = 0;
+for (const step of steps) {
+  const stateWasZer0 = state === 0;
+  state += step;
+  const countDelta = (Math.sign(state) < 0 && !stateWasZer0 ? 1 : 0) + Math.floor(Math.abs(state) * 0.01);
+  count += countDelta;
+  state %= 100;
+  if (state < 0) state += 100;
+  if (countDelta === 0 && state === 0) count++;
+}
+
+console.log(count);
