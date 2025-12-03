@@ -220,3 +220,30 @@ for (const battery of batteries) {
 }
 
 console.log(totalCapacity);
+
+const count = 12;
+
+totalCapacity = 0;
+for (const battery of batteries) {
+  const selectedIndexes = [];
+  let startIndex = 0;
+  // console.log(battery.map((v) => v.toString()).join(''));
+  for (let i = 0; i < count; i++) {
+    const endIndex = i + 1 - count || undefined;
+    // console.log(
+    //   Math.max(...battery.slice(startIndex, endIndex)),
+    //   battery.slice(startIndex, endIndex),
+    //   startIndex,
+    //   i - count
+    // );
+    const highestIndex = battery.indexOf(Math.max(...battery.slice(startIndex, endIndex)), startIndex);
+    selectedIndexes.push(highestIndex);
+    startIndex = highestIndex + 1;
+  }
+  // console.log(selectedIndexes);
+  const capacity = selectedIndexes.reduce((sum, index, i) => sum + battery[index]! * Math.pow(10, count - i - 1), 0);
+  // console.log(capacity);
+  totalCapacity += capacity;
+}
+
+console.log(totalCapacity);
